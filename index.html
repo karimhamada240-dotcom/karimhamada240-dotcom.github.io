@@ -55,19 +55,6 @@
         .floating-image {
             animation: float 4s ease-in-out infinite;
         }
-
-        /* Custom Animation for Contact Button */
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 15px #3b82f6;
-            }
-            50% {
-                box-shadow: 0 0 15px #3b82f6, 0 0 25px #3b82f6, 0 0 35px #3b82f6;
-            }
-        }
-        .cta-glow {
-            animation: pulse-glow 2.5s infinite ease-in-out;
-        }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-300">
@@ -107,7 +94,7 @@
             <!-- Text Content -->
             <div class="md:w-1/2 lg:w-3/5 text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-100 leading-tight">
-                    Karim Hamada Fathallah
+                    Karim Hamada <br class="hidden md:block"> Fathallah
                 </h1>
                 <p class="mt-4 text-xl md:text-2xl font-semibold text-blue-500">
                     Data Analyst | CS and Information Technology Student
@@ -155,7 +142,7 @@
                     <div class="p-8">
                         <h3 class="font-bold text-xl mb-3 text-slate-100">HR Performance Analysis Dashboard</h3>
                         <p class="text-slate-400 mb-6">An end-to-end BI solution for analyzing HR data, focusing on tracking employee attrition and performance.</p>
-                        <button data-modal-target="modal-hr" class="open-modal-button font-semibold text-blue-500 hover:text-blue-400 transition-colors duration-300 group">
+                        <button data-modal-target="modal-hr" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
                             View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
                         </button>
                     </div>
@@ -167,7 +154,7 @@
                     <div class="p-8">
                         <h3 class="font-bold text-xl mb-3 text-slate-100">Supermarket Sales Analysis Dashboard</h3>
                         <p class="text-slate-400 mb-6">A comprehensive analysis of supermarket sales, from data cleaning to the creation of an interactive dashboard.</p>
-                        <button data-modal-target="modal-supermarket" class="open-modal-button font-semibold text-blue-500 hover:text-blue-400 transition-colors duration-300 group">
+                        <button data-modal-target="modal-supermarket" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
                             View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
                         </button>
                     </div>
@@ -179,7 +166,7 @@
                     <div class="p-8">
                         <h3 class="font-bold text-xl mb-3 text-slate-100">Sales Data Analysis with DAX</h3>
                         <p class="text-slate-400 mb-6">A project focused on creating advanced performance metrics using DAX to provide strategic insights into sales performance.</p>
-                        <button data-modal-target="modal-dax" class="open-modal-button font-semibold text-blue-500 hover:text-blue-400 transition-colors duration-300 group">
+                        <button data-modal-target="modal-dax" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
                             View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
                         </button>
                     </div>
@@ -191,7 +178,7 @@
                     <div class="p-8">
                         <h3 class="font-bold text-xl mb-3 text-slate-100">Data Cleaning & Transformation with Power Query</h3>
                         <p class="text-slate-400 mb-6">An end-to-end process of cleaning and transforming raw, unstructured data to build a solid foundation for future analysis.</p>
-                        <button data-modal-target="modal-cleaning" class="open-modal-button font-semibold text-blue-500 hover:text-blue-400 transition-colors duration-300 group">
+                        <button data-modal-target="modal-cleaning" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
                             View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
                         </button>
                     </div>
@@ -208,7 +195,7 @@
             <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Certification Item 1 -->
                 <a href="https://www.credly.com/badges/fed92c17-7e63-4a39-b8d9-8070e858a096/public_url" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                     </div>
                     <div>
@@ -218,7 +205,7 @@
                 </a>
                 <!-- Certification Item 2 -->
                 <div class="bg-slate-700 p-6 rounded-lg flex items-start gap-4" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                     </div>
                     <div>
@@ -228,7 +215,7 @@
                 </div>
                 <!-- Certification Item 3 -->
                 <a href="https://www.udemy.com/certificate/UC-100423ce-ac6f-4f48-9e9c-7dd16cfc482d/" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                     </div>
                     <div>
@@ -238,7 +225,7 @@
                 </a>
                 <!-- Certification Item 4 -->
                  <div class="bg-slate-700 p-6 rounded-lg flex items-start gap-4" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4m-6 0a2 2 0 100-4m0 4a2 2 0 110-4m-6 4a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4" /></svg>
                     </div>
                     <div>
@@ -248,7 +235,7 @@
                 </div>
                  <!-- Certification Item 5 -->
                  <a href="https://api.accredible.com/v1/auth/invite?code=ca9170bd27222a7739a9&credential_id=29ea6e23-8d3e-4f03-8563-9784f83ae392&url=https%3A%2F%2Fskillshop.credential.net%2F29ea6e23-8d3e-4f03-8563-9784f83ae392&ident=b75df3ba-5d78-4126-a2ee-e464a6e06ae6/" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
                     </div>
                     <div>
@@ -267,56 +254,56 @@
             <div class="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
                 <!-- Skill Item -->
                 <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="100">
-                    <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                    <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                     </div>
                     <h3 class="font-bold text-lg mt-4 text-slate-100">Power BI</h3>
                 </div>
                  <!-- Skill Item -->
                 <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="200">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                     </div>
                     <h3 class="font-bold text-lg mt-4 text-slate-100">Power Query</h3>
                 </div>
                  <!-- Skill Item -->
                 <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="300">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                     </div>
                     <h3 class="font-bold text-lg mt-4 text-slate-100">DAX</h3>
                 </div>
                  <!-- Skill Item -->
                 <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="400">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10m16-10v10M4 11h16M4 14h16M12 4v16" /></svg>
                     </div>
                     <h3 class="font-bold text-lg mt-4 text-slate-100">SQL</h3>
                 </div>
                  <!-- Skill Item -->
                 <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="500">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     </div>
                     <h3 class="font-bold text-lg mt-4 text-slate-100">Excel</h3>
                 </div>
                  <!-- Skill Item -->
                 <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="600">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.293 2.293c.63.63.184 1.707-.707 1.707H10V3zM15 21l2.293-2.293c.63-.63.184-1.707-.707-1.707H14v4.001z" /></svg>
                     </div>
                     <h3 class="font-bold text-lg mt-4 text-slate-100">Data Cleaning</h3>
                 </div>
                  <!-- Skill Item -->
                 <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="700">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
                     </div>
                     <h3 class="font-bold text-lg mt-4 text-slate-100">Data Modeling</h3>
                 </div>
                  <!-- Skill Item -->
                 <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="800">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center">
+                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071a7.5 7.5 0 0110.607 0M12 12v.01" /></svg>
                     </div>
                     <h3 class="font-bold text-lg mt-4 text-slate-100">CCNA Networking</h3>
@@ -326,14 +313,23 @@
             <div class="mt-16" data-aos="fade-up">
                  <h3 class="text-2xl md:text-3xl font-bold text-center text-slate-100">Interpersonal Skills</h3>
                  <div class="mt-8 max-w-4xl mx-auto flex flex-wrap justify-center gap-4">
-                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Project Management</span>
-                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">Teamwork</span>
-                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="200">Time Management</span>
-                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="250">Leadership</span>
-                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="300">Effective Communication</span>
-                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="350">Critical Thinking</span>
+                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Project Management</span>
+                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">Teamwork</span>
+                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="200">Time Management</span>
+                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="250">Leadership</span>
+                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="300">Effective Communication</span>
+                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="350">Critical Thinking</span>
                  </div>
             </div>
+
+            <div class="mt-16" data-aos="fade-up">
+                <h3 class="text-2xl md:text-3xl font-bold text-center text-slate-100">Languages</h3>
+                <div class="mt-8 max-w-4xl mx-auto flex flex-wrap justify-center gap-4">
+                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Arabic: Native Language</span>
+                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">English: Good</span>
+                </div>
+           </div>
+
         </div>
     </section>
 
@@ -344,9 +340,17 @@
             <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">
                 Looking for a passionate data analyst for your next project? I'm available for new opportunities.
             </p>
-            <a href="mailto:karimhamada240@gmail.com" class="mt-10 inline-block bg-blue-600 text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg transform hover:scale-105 cta-glow">
-                karimhamada240@gmail.com
-            </a>
+            <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
+                <a href="mailto:karimhamada240@gmail.com" class="inline-block bg-blue-600 text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg transform hover:scale-105">
+                    karimhamada240@gmail.com
+                </a>
+                <a href="Karim_Hamada_CV.pdf" download="Karim_Hamada_CV.pdf" class="inline-flex items-center gap-2 bg-slate-600 text-white font-bold text-lg py-3 px-6 rounded-lg hover:bg-slate-700 transition-colors duration-300 shadow-lg transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Download CV
+                </a>
+            </div>
             <div class="mt-10 flex justify-center items-center space-x-6">
                 <a href="https://www.linkedin.com/in/karim-hamada-fathalla/" target="_blank" class="text-slate-400 hover:text-white transition-colors duration-300">
                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -378,7 +382,20 @@
                     <li><strong>Dashboard Design:</strong> Created a visually appealing and intuitive dashboard featuring KPI cards for an at-a-glance overview, multi-dimensional analysis charts, and interactive slicers for deep-dive analysis.</li>
                 </ul>
                 <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                <p>Power BI, Power Query, DAX</p>
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power BI</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power Query</span>
+                    </div>
+                     <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">DAX</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -401,7 +418,20 @@
                     <li><strong>Dashboard Design:</strong> Designed a dynamic dashboard to visualize key business metrics, including Total Sales by Customer, Total Sales by Month, and prominently displayed KPI cards.</li>
                 </ul>
                 <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                <p>Power BI, Power Query, DAX</p>
+                 <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power BI</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power Query</span>
+                    </div>
+                     <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">DAX</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -423,7 +453,20 @@
                     <li><strong>Dashboard Creation:</strong> Designed a dynamic dashboard visualizing key insights, such as Total Quantity by Product Line, Total Orders by City/State, and Average Price by Product Line.</li>
                 </ul>
                 <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                <p>Power BI, Power Query, DAX</p>
+                 <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power BI</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power Query</span>
+                    </div>
+                     <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">DAX</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -447,7 +490,16 @@
                     <li><strong>Handling Missing Values & Errors:</strong> Inspected and handled nulls and errors to prevent analytical issues.</li>
                 </ul>
                 <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                <p>Power BI, Power Query</p>
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power BI</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power Query</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
