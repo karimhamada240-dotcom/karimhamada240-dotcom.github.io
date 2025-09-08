@@ -159,9 +159,22 @@
                         </button>
                     </div>
                 </div>
+                
+                <!-- NEW PROJECT START: Global Sales Analysis -->
+                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="300">
+                    <img src="photos/Sales Performance Analysis.png" alt="Global Sales Performance Dashboard" class="w-full h-56 object-cover">
+                    <div class="p-8">
+                        <h3 class="font-bold text-xl mb-3 text-slate-100">Global Sales Performance Analysis</h3>
+                        <p class="text-slate-400 mb-6">An interactive dashboard analyzing global e-commerce sales to identify trends, top-performing regions, and key profit drivers.</p>
+                        <button data-modal-target="modal-sales" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
+                            View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- NEW PROJECT END -->
 
                 <!-- Project 3: DAX Sales Analysis -->
-                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="300">
+                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="400">
                     <img src="photos/download.png" alt="DAX Sales Analysis Dashboard" class="w-full h-56 object-cover">
                     <div class="p-8">
                         <h3 class="font-bold text-xl mb-3 text-slate-100">Sales Data Analysis with DAX</h3>
@@ -173,7 +186,7 @@
                 </div>
 
                 <!-- Project 4: Data Cleaning -->
-                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="400">
+                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="500">
                     <img src="photos/cleaning.png" alt="Data Cleaning Project" class="w-full h-56 object-cover">
                     <div class="p-8">
                         <h3 class="font-bold text-xl mb-3 text-slate-100">Data Cleaning & Transformation with Power Query</h3>
@@ -313,12 +326,12 @@
             <div class="mt-16" data-aos="fade-up">
                  <h3 class="text-2xl md:text-3xl font-bold text-center text-slate-100">Interpersonal Skills</h3>
                  <div class="mt-8 max-w-4xl mx-auto flex flex-wrap justify-center gap-4">
-                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Project Management</span>
-                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">Teamwork</span>
-                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="200">Time Management</span>
-                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="250">Leadership</span>
-                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="300">Effective Communication</span>
-                      <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="350">Critical Thinking</span>
+                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Project Management</span>
+                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">Teamwork</span>
+                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="200">Time Management</span>
+                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="250">Leadership</span>
+                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="300">Effective Communication</span>
+                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="350">Critical Thinking</span>
                  </div>
             </div>
 
@@ -435,7 +448,44 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- NEW MODAL START: Sales Analysis Modal -->
+    <div id="modal-sales" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0">
+        <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
+            <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
+                <h3 class="text-2xl font-bold text-slate-100">Global Sales Performance Analysis Dashboard</h3>
+                <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+            </div>
+            <img src="photos/Sales Performance Analysis.png" alt="Global Sales Performance Dashboard" class="w-full rounded-lg mb-6 shadow-md">
+            <div class="space-y-4 text-slate-400 text-left leading-relaxed">
+                <p>This project involved a comprehensive analysis of the 'Global Superstore' dataset. The primary objective was to build an interactive and visually compelling dashboard in Power BI to track sales, profitability, and geographical performance, transforming raw data into strategic business insights.</p>
+                <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Data Cleaning & Transformation (Power Query):</strong> Corrected date format issues using the 'Change Type with Locale' feature to handle regional date differences. Verified all data types and ensured data integrity before loading.</li>
+                    <li><strong>Data Modeling:</strong> Implemented data modeling best practices by creating a dedicated Calendar table using DAX. Established and validated a correct one-to-many relationship between the Calendar table and the main sales data table.</li>
+                    <li><strong>Advanced DAX Measures:</strong> Developed a suite of DAX measures to calculate core KPIs, including Total Sales, Total Profit, and Profit Margin. Created advanced time-intelligence measures like `Last Year Sales` and `Sales YoY %` for comparative analysis.</li>
+                    <li><strong>Interactive Dashboard Design:</strong> Designed a professional, dark-themed dashboard featuring KPI cards with conditional formatting, a time-series line chart, a geographical map to visualize profit by country, and charts for categorical analysis. Implemented slicers for dynamic filtering by year, market, and category.</li>
+                </ul>
+                <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power BI</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                        <span class="font-medium text-sm text-slate-200">Power Query</span>
+                    </div>
+                     <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        <span class="font-medium text-sm text-slate-200">DAX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- NEW MODAL END -->
+
     <!-- DAX Modal -->
     <div id="modal-dax" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0">
         <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
@@ -586,4 +636,3 @@
 
 </body>
 </html>
-
