@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karim Hamada Portfolio | Data Analyst</title>
-    <meta name="description" content="Portfolio showcasing Karim Hamada's projects in data analysis using Power BI, DAX, and Power Query.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- AOS Animation Library CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    
     <style>
         body {
             font-family: 'Cairo', sans-serif;
             scroll-behavior: smooth;
+            background-color: #0f172a; /* slate-900 */
+            color: #e2e8f0; /* slate-300 */
         }
         .modal {
             transition: opacity 0.3s ease;
@@ -44,9 +43,7 @@
         }
         .modal-content::-webkit-scrollbar-thumb:hover {
             background: #64748b; /* slate-500 */
-        }
-        
-        /* Custom Animation for Hero Image */
+        }    /* Custom Animation for Hero Image */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-12px); }
@@ -55,378 +52,629 @@
         .floating-image {
             animation: float 4s ease-in-out infinite;
         }
+        /* AI Chat Styles */
+        .chat-history {
+            height: 350px; /* or max-height */
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .chat-message {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            max-width: 85%;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        .chat-message.user {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-message.model {
+            background-color: #334155; /* slate-700 */
+            color: #e2e8f0; /* slate-300 */
+            align-self: flex-start;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-message.loading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-style: italic;
+            color: #94a3b8; /* slate-400 */
+        }
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #94a3b8; /* slate-400 */
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .suggestion-chip {
+            background-color: #334155; /* slate-700 */
+            color: #cbd5e1; /* slate-400 */
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border: 1px solid #475569; /* slate-600 */
+        }
+        .suggestion-chip:hover {
+            background-color: #475569; /* slate-600 */
+        }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-300">
 
-    <!-- Header -->
-    <header class="bg-slate-900/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-blue-500">Karim Hamada</a>
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">About</a>
-                <a href="#projects" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">Projects</a>
-                <a href="#certifications" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">Certifications</a>
-                <a href="#skills" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">Skills</a>
-                <a href="#contact" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">Contact</a>
-            </div>
-             <!-- Mobile Menu Button -->
-            <div class="md:hidden">
-                <button id="menu-btn" class="text-slate-300 hover:text-blue-500 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
-            </div>
-        </nav>
-        <!-- Mobile Menu -->
-        <div id="menu" class="hidden md:hidden">
-            <a href="#about" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">About</a>
-            <a href="#projects" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">Projects</a>
-            <a href="#certifications" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">Certifications</a>
-            <a href="#skills" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">Skills</a>
-            <a href="#contact" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">Contact</a>
+<!-- Header -->
+<header class="bg-slate-900/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold text-blue-500">Karim Hamada</a>
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8">
+            <a href="#about" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">About</a>
+            <a href="#projects" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">Projects</a>
+            <a href="#certifications" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">Certifications</a>
+            <a href="#skills" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">Skills</a>
+            <a href="#contact" class="text-slate-300 hover:text-blue-500 transition-colors duration-300">Contact</a>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <main id="home" class="container mx-auto px-6 py-24 md:py-32 overflow-hidden">
-        <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
-            <!-- Text Content -->
-            <div class="md:w-1/2 lg:w-3/5 text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-100 leading-tight">
-                    Karim Hamada <br class="hidden md:block"> Fathallah
-                </h1>
-                <p class="mt-4 text-xl md:text-2xl font-semibold text-blue-500">
-                    Data Analyst | CS and Information Technology Student
-                </p>
-                <p class="mt-6 max-w-xl mx-auto md:mx-0 text-lg text-slate-400 leading-relaxed">
-                    Ambitious IT student specializing in Information Technology and Data Analysis. Driven to leverage data and technology to solve problems and create innovative solutions using Excel, Power BI, and SQL.
-                </p>
-                <div class="mt-10 flex justify-center md:justify-start items-center space-x-4">
-                    <a href="https://www.linkedin.com/in/karim-hamada-fathalla/" target="_blank" class="text-slate-400 p-3 rounded-full hover:bg-slate-800 hover:text-blue-500 transition-colors duration-300">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    </a>
-                </div>
-            </div>
-            <!-- Personal Image -->
-            <div class="md:w-1/2 lg:w-2/5 flex justify-center md:justify-end" data-aos="fade-left" data-aos-duration="1000">
-                <img src="photos/profile.jpg" alt="Karim Hamada" class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover shadow-2xl border-8 border-slate-700 floating-image">
-            </div>
+         <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+            <button id="menu-btn" class="text-slate-300 hover:text-blue-500 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
         </div>
-    </main>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="menu" class="hidden md:hidden">
+        <a href="#about" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">About</a>
+        <a href="#projects" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">Projects</a>
+        <a href="#certifications" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">Certifications</a>
+        <a href="#skills" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">Skills</a>
+        <a href="#contact" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-700">Contact</a>
+    </div>
+</header>
 
-    <!-- About Section -->
-    <section id="about" class="bg-slate-800 py-20">
-        <div class="container mx-auto px-6 text-center" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold section-title text-slate-100">About Me</h2>
-            <div class="mt-10 max-w-4xl mx-auto text-lg text-slate-400 space-y-5 text-left leading-relaxed">
-                <p>
-                    I am a third-year Computer and Information Technology student at the Egyptian E-Learning University (EELU) with a GPA of 3.4, pursuing a Bachelor of Computers and Information Technology. I have a great passion for transforming raw data into actionable insights that support decision-making.
-                </p>
-                <p>
-                    I have strong hands-on experience in the complete data analysis lifecycle, from importing and cleaning data using Power Query, creating advanced metrics with DAX, to designing interactive and impactful dashboards in Power BI. I hold specialized certifications including CCNA, AI Fundamentals, and Data Analysis with Power BI, reflecting a solid technical foundation.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-slate-900">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center section-title text-slate-100" data-aos="fade-up">Projects</h2>
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
-                
-                <!-- Project 1: HR Attrition -->
-                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="100">
-                    <img src="photos/HR-Employee-Attrition project.png" alt="HR Performance Dashboard" class="w-full h-56 object-cover">
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-3 text-slate-100">HR Performance Analysis Dashboard</h3>
-                        <p class="text-slate-400 mb-6">An end-to-end BI solution for analyzing HR data, focusing on tracking employee attrition and performance.</p>
-                        <button data-modal-target="modal-hr" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
-                            View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Project 2: Supermarket Sales -->
-                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="200">
-                    <img src="photos/Supermarket-Sales-Analysis.png" alt="Supermarket Sales Dashboard" class="w-full h-56 object-cover">
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-3 text-slate-100">Supermarket Sales Analysis Dashboard</h3>
-                        <p class="text-slate-400 mb-6">A comprehensive analysis of supermarket sales, from data cleaning to the creation of an interactive dashboard.</p>
-                        <button data-modal-target="modal-supermarket" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
-                            View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- NEW PROJECT START: Global Sales Analysis -->
-                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="300">
-                    <img src="photos/Sales Performance Analysis.png" alt="Global Sales Performance Dashboard" class="w-full h-56 object-cover">
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-3 text-slate-100">Global Sales Performance Analysis</h3>
-                        <p class="text-slate-400 mb-6">An interactive dashboard analyzing global e-commerce sales to identify trends, top-performing regions, and key profit drivers.</p>
-                        <button data-modal-target="modal-sales" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
-                            View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
-                        </button>
-                    </div>
-                </div>
-                <!-- NEW PROJECT END -->
-
-                <!-- Project 3: DAX Sales Analysis -->
-                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="400">
-                    <img src="photos/download.png" alt="DAX Sales Analysis Dashboard" class="w-full h-56 object-cover">
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-3 text-slate-100">Sales Data Analysis with DAX</h3>
-                        <p class="text-slate-400 mb-6">A project focused on creating advanced performance metrics using DAX to provide strategic insights into sales performance.</p>
-                        <button data-modal-target="modal-dax" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
-                            View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Project 4: Data Cleaning -->
-                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="500">
-                    <img src="photos/cleaning.png" alt="Data Cleaning Project" class="w-full h-56 object-cover">
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-3 text-slate-100">Data Cleaning & Transformation with Power Query</h3>
-                        <p class="text-slate-400 mb-6">An end-to-end process of cleaning and transforming raw, unstructured data to build a solid foundation for future analysis.</p>
-                        <button data-modal-target="modal-cleaning" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
-                            View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications" class="bg-slate-800 py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center section-title text-slate-100" data-aos="fade-up">Certifications</h2>
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Certification Item 1 -->
-                <a href="https://www.credly.com/badges/fed92c17-7e63-4a39-b8d9-8070e858a096/public_url" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg text-slate-100">CCNA: Introduction to Networks</h3>
-                        <p class="text-slate-400 text-sm">Cisco Networking Academy</p>
-                    </div>
-                </a>
-                <!-- Certification Item 2 -->
-                <div class="bg-slate-700 p-6 rounded-lg flex items-start gap-4" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg text-slate-100">Data Analysis with Power BI</h3>
-                        <p class="text-slate-400 text-sm">DEPI: Digital Egypt Pioneers Initiative</p>
-                    </div>
-                </div>
-                <!-- Certification Item 3 -->
-                <a href="https://www.udemy.com/certificate/UC-100423ce-ac6f-4f48-9e9c-7dd16cfc482d/" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg text-slate-100">AI Fundamentals</h3>
-                        <p class="text-slate-400 text-sm">MTF Institute via Udemy</p>
-                    </div>
-                </a>
-                <!-- Certification Item 4 -->
-                 <a href="https://www.credly.com/badges/4917a1b0-d3a7-4376-8d2e-f2bfb37bff5a" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4m-6 0a2 2 0 100-4m0 4a2 2 0 110-4m-6 4a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4" /></svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg text-slate-100">Device Configuration and Management</h3>
-                        <p class="text-slate-400 text-sm">Certiport and Pearson VUE</p>
-                    </div>
-                </a>
-                 <!-- Certification Item 5 -->
-                 <a href="https://api.accredible.com/v1/auth/invite?code=ca9170bd27222a7739a9&credential_id=29ea6e23-8d3e-4f03-8563-9784f83ae392&url=https%3A%2F%2Fskillshop.credential.net%2F29ea6e23-8d3e-4f03-8563-9784f83ae392&ident=b75df3ba-5d78-4126-a2ee-e464a6e06ae6/" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg text-slate-100">Google Analytics Certification</h3>
-                        <p class="text-slate-400 text-sm">Google</p>
-                    </div>
-                </a>
-                <!-- Certification Item 6: Automated Machine Learning for Beginners -->
-                <a href="https://www.udemy.com/certificate/UC-9a493c60-5191-4184-a86e-5413ec3c7008/" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg text-slate-100">Automated Machine Learning for Beginners</h3>
-                        <p class="text-slate-400 text-sm">Google & Apple (via Udemy)</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="bg-slate-900 py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center section-title text-slate-100" data-aos="fade-up">Skills & Technologies</h2>
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
-                <!-- Skill Item -->
-                <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="100">
-                    <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                    </div>
-                    <h3 class="font-bold text-lg mt-4 text-slate-100">Power BI</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="200">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                    </div>
-                    <h3 class="font-bold text-lg mt-4 text-slate-100">Power Query</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="300">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-                    </div>
-                    <h3 class="font-bold text-lg mt-4 text-slate-100">DAX</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="400">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10m16-10v10M4 11h16M4 14h16M12 4v16" /></svg>
-                    </div>
-                    <h3 class="font-bold text-lg mt-4 text-slate-100">SQL</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="500">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                    </div>
-                    <h3 class="font-bold text-lg mt-4 text-slate-100">Excel</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="600">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.293 2.293c.63.63.184 1.707-.707 1.707H10V3zM15 21l2.293-2.293c.63-.63.184-1.707-.707-1.707H14v4.001z" /></svg>
-                    </div>
-                    <h3 class="font-bold text-lg mt-4 text-slate-100">Data Cleaning</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="700">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-                    </div>
-                    <h3 class="font-bold text-lg mt-4 text-slate-100">Data Modeling</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="800">
-                     <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071a7.5 7.5 0 0110.607 0M12 12v.01" /></svg>
-                    </div>
-                    <h3 class="font-bold text-lg mt-4 text-slate-100">CCNA Networking</h3>
-                </div>
-            </div>
-
-            <div class="mt-16" data-aos="fade-up">
-                 <h3 class="text-2xl md:text-3xl font-bold text-center text-slate-100">Interpersonal Skills</h3>
-                 <div class="mt-8 max-w-4xl mx-auto flex flex-wrap justify-center gap-4">
-                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Project Management</span>
-                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">Teamwork</span>
-                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="200">Time Management</span>
-                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="250">Leadership</span>
-                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="300">Effective Communication</span>
-                       <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="350">Critical Thinking</span>
-                 </div>
-            </div>
-
-            <div class="mt-16" data-aos="fade-up">
-                <h3 class="text-2xl md:text-3xl font-bold text-center text-slate-100">Languages</h3>
-                <div class="mt-8 max-w-4xl mx-auto flex flex-wrap justify-center gap-4">
-                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Arabic: Native Language</span>
-                     <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">English: Good</span>
-                </div>
-           </div>
-
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <footer id="contact" class="bg-slate-800 text-white py-20 border-t border-slate-700">
-        <div class="container mx-auto px-6 text-center" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold">Let's Talk!</h2>
-            <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">
-                Looking for a passionate data analyst for your next project? I'm available for new opportunities.
+<!-- Hero Section -->
+<main id="home" class="container mx-auto px-6 py-24 md:py-32 overflow-hidden">
+    <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
+        <!-- Text Content -->
+        <div class="md:w-1/2 lg:w-3/5 text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-100 leading-tight">
+                Karim Hamada <br class="hidden md:block"> Fathallah
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl font-semibold text-blue-500">
+                Data Analyst | CS and Information Technology Student
             </p>
-            <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
-                <a href="mailto:karimhamada240@gmail.com" class="inline-block bg-blue-600 text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg transform hover:scale-105">
-                    karimhamada240@gmail.com
-                </a>
-                <a href="Karim_Hamada_CV.pdf" download="Karim_Hamada_CV.pdf" class="inline-flex items-center gap-2 bg-slate-600 text-white font-bold text-lg py-3 px-6 rounded-lg hover:bg-slate-700 transition-colors duration-300 shadow-lg transform hover:scale-105">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                    </svg>
-                    Download CV
-                </a>
-            </div>
-            <div class="mt-10 flex justify-center items-center space-x-6">
-                <a href="https://www.linkedin.com/in/karim-hamada-fathalla/" target="_blank" class="text-slate-400 hover:text-white transition-colors duration-300">
+            <p class="mt-6 max-w-xl mx-auto md:mx-0 text-lg text-slate-400 leading-relaxed">
+                Ambitious IT student specializing in Information Technology and Data Analysis. Driven to leverage data and technology to solve problems and create innovative solutions using Excel, Power BI, and SQL.
+            </p>
+            <div class="mt-10 flex justify-center md:justify-start items-center space-x-4">
+                <a href="https://www.linkedin.com/in/karim-hamada-fathalla/" target="_blank" class="text-slate-400 p-3 rounded-full hover:bg-slate-800 hover:text-blue-500 transition-colors duration-300">
                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
-                <a href="https://wa.me/qr/5GTDJPRWIRE6B1" target="_blank" class="text-slate-400 hover:text-white transition-colors duration-300">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zM6.597 20.193c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.433-9.894-9.889-9.894-5.452 0-9.887 4.434-9.889 9.888.001 2.223.651 4.31 1.746 6.2l-1.105 4.029 4.13-1.084zM16.161 13.334c-.197-.1-1.162-.574-1.342-.641-.18-.065-.312-.1-.444.099-.133.197-.507.641-.622.765-.116.124-.233.148-.43.05-.197-.1-.836-.308-1.592-.985-.589-.542-.967-1.281-1.074-1.498-.107-.216-.011-.33.088-.429.088-.088.197-.232.296-.346.1-.116.133-.198.198-.33.065-.134.034-.249-.016-.347-.05-.099-.444-1.066-.609-1.464-.164-.399-.33-.347-.461-.352-.123-.005-.264-.005-.405-.005-.141 0-.374.05-.568.247-.194.198-.765.751-.765 1.825 0 1.074.781 2.116.896 2.262.116.148 1.583 2.529 3.847 3.537.533.262.948.419 1.274.528.534.169.967.144 1.328.089.412-.064 1.162-.476 1.328-1.105.166-.628.166-1.161.116-1.281-.05-.124-.18-.198-.375-.298z"/></svg>
+            </div>
+        </div>
+        <!-- Personal Image -->
+        <div class="md:w-1/2 lg:w-2/5 flex justify-center md:justify-end" data-aos="fade-left" data-aos-duration="1000">
+            <img src="photos/profile.jpg" alt="Karim Hamada" class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover shadow-2xl border-8 border-slate-700 floating-image">
+        </div>
+    </div>
+</main>
+
+<!-- About Section -->
+<section id="about" class="bg-slate-800 py-20">
+    <div class="container mx-auto px-6 text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold section-title text-slate-100">About Me</h2>
+        <div class="mt-10 max-w-4xl mx-auto text-lg text-slate-400 space-y-5 text-left leading-relaxed">
+            <p>
+                I am a third-year Computer and Information Technology student at the Egyptian E-Learning University (EELU) with a GPA of 3.4, pursuing a Bachelor of Computers and Information Technology. I have a great passion for transforming raw data into actionable insights that support decision-making.
+            </p>
+            <p>
+                I have strong hands-on experience in the complete data analysis lifecycle, from importing and cleaning data using Power Query, creating advanced metrics with DAX, to designing interactive and impactful dashboards in Power BI. I hold specialized certifications including CCNA, AI Fundamentals, and Data Analysis with Power BI, reflecting a solid technical foundation.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="py-20 bg-slate-900">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center section-title text-slate-100" data-aos="fade-up">Projects</h2>
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+            
+            <!-- NEW PROJECT START: Sales & Market Analysis -->
+            <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="100">
+                <!-- Note: Update this image path with your new image -->
+                <img src="photos/Sales Performance Overview.jpg" alt="Sales & Market Analysis Dashboard" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/600x400/1e293b/94a3b8?text=Sales+Overview';">
+                <div class="p-8">
+                    <h3 class="font-bold text-xl mb-3 text-slate-100">Power BI Sales & Market Analysis</h3>
+                    <p class="text-slate-400 mb-6">End-to-end analysis of store and market data, from cleaning in Power Query to interactive dashboards.</p>
+                    <button data-modal-target="modal-sales-market" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
+                        View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
+                    </button>
+                </div>
+            </div>
+            <!-- NEW PROJECT END -->
+
+            <!-- Project 1: HR Attrition -->
+            <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="200">
+                <img src="photos/HR-Employee-Attrition project.png" alt="HR Performance Dashboard" class="w-full h-56 object-cover">
+                <div class="p-8">
+                    <h3 class="font-bold text-xl mb-3 text-slate-100">HR Performance Analysis Dashboard</h3>
+                    <p class="text-slate-400 mb-6">An end-to-end BI solution for analyzing HR data, focusing on tracking employee attrition and performance.</p>
+                    <button data-modal-target="modal-hr" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
+                        View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project 2: Supermarket Sales -->
+            <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="300">
+                <img src="photos/Supermarket-Sales-Analysis.png" alt="Supermarket Sales Dashboard" class="w-full h-56 object-cover">
+                <div class="p-8">
+                    <h3 class="font-bold text-xl mb-3 text-slate-100">Supermarket Sales Analysis Dashboard</h3>
+                    <p class="text-slate-400 mb-6">A comprehensive analysis of supermarket sales, from data cleaning to the creation of an interactive dashboard.</p>
+                    <button data-modal-target="modal-supermarket" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
+                        View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Project 3: Global Sales Analysis -->
+            <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="400">
+                <img src="photos/Sales Performance Analysis.png" alt="Global Sales Performance Dashboard" class="w-full h-56 object-cover">
+                <div class="p-8">
+                    <h3 class="font-bold text-xl mb-3 text-slate-100">Global Sales Performance Analysis</h3>
+                    <p class="text-slate-400 mb-6">An interactive dashboard analyzing global e-commerce sales to identify trends, top-performing regions, and key profit drivers.</p>
+                    <button data-modal-target="modal-sales" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
+                        View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Project 4: DAX Sales Analysis -->
+            <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="500">
+                <img src="photos/download.png" alt="DAX Sales Analysis Dashboard" class="w-full h-56 object-cover">
+                <div class="p-8">
+                    <h3 class="font-bold text-xl mb-3 text-slate-100">Sales Data Analysis with DAX</h3>
+                    <p class="text-slate-400 mb-6">A project focused on creating advanced performance metrics using DAX to provide strategic insights into sales performance.</p>
+                    <button data-modal-target="modal-dax" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
+                        View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project 5: Data Cleaning -->
+            <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-2xl" data-aos="zoom-in-up" data-aos-delay="600">
+                <img src="photos/cleaning.png" alt="Data Cleaning Project" class="w-full h-56 object-cover">
+                <div class="p-8">
+                    <h3 class="font-bold text-xl mb-3 text-slate-100">Data Cleaning & Transformation with Power Query</h3>
+                    <p class="text-slate-400 mb-6">An end-to-end process of cleaning and transforming raw, unstructured data to build a solid foundation for future analysis.</p>
+                    <button data-modal-target="modal-cleaning" class="open-modal-button font-semibold text-blue-500 border border-blue-500 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-slate-100 transition-colors duration-300 group">
+                        View Details <span class="group-hover:ml-2 transition-all">&rarr;</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Certifications Section -->
+<section id="certifications" class="bg-slate-800 py-20">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center section-title text-slate-100" data-aos="fade-up">Certifications</h2>
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Certification Item 1 -->
+            <a href="https://www.credly.com/badges/fed92c17-7e63-4a39-b8d9-8070e858a096/public_url" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="100">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-slate-100">CCNA: Introduction to Networks</h3>
+                    <p class="text-slate-400 text-sm">Cisco Networking Academy</p>
+                </div>
+            </a>
+            <!-- Certification Item 2 -->
+            <div class="bg-slate-700 p-6 rounded-lg flex items-start gap-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-slate-100">Data Analysis with Power BI</h3>
+                    <p class="text-slate-400 text-sm">DEPI: Digital Egypt Pioneers Initiative</p>
+                </div>
+            </div>
+            <!-- Certification Item 3 -->
+            <a href="https://www.udemy.com/certificate/UC-100423ce-ac6f-4f48-9e9c-7dd16cfc482d/" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="300">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-slate-100">AI Fundamentals</h3>
+                    <p class="text-slate-400 text-sm">MTF Institute via Udemy</p>
+                </div>
+            </a>
+            <!-- Certification Item 4 -->
+             <a href="https://www.credly.com/badges/4917a1b0-d3a7-4376-8d2e-f2bfb37bff5a" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="400">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4m-6 0a2 2 0 100-4m0 4a2 2 0 110-4m-6 4a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4" /></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-slate-100">Device Configuration and Management</h3>
+                    <p class="text-slate-400 text-sm">Certiport and Pearson VUE</p>
+                </div>
+            </a>
+             <!-- Certification Item 5 -->
+             <a href="https://api.accredible.com/v1/auth/invite?code=ca9170bd27222a7739a9&credential_id=29ea6e23-8d3e-4f03-8563-9784f83ae392&url=https%3A%2F%2Fskillshop.credential.net%2F29ea6e23-8d3e-4f03-8563-9784f83ae392&ident=b75df3ba-5d78-4126-a2ee-e464a6e06ae6/" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="500">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-slate-100">Google Analytics Certification</h3>
+                    <p class="text-slate-400 text-sm">Google</p>
+                </div>
+            </a>
+            <!-- Certification Item 6: Automated Machine Learning for Beginners -->
+            <a href="https://www.udemy.com/certificate/UC-9a493c60-5191-4184-a86e-5413ec3c7008/" target="_blank" class="bg-slate-700 p-6 rounded-lg flex items-start gap-4 hover:bg-slate-600 transition-colors duration-300" data-aos="zoom-in" data-aos-delay="600">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-slate-100">Automated Machine Learning for Beginners</h3>
+                    <p class="text-slate-400 text-sm">Google & Apple (via Udemy)</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="bg-slate-900 py-20">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center section-title text-slate-100" data-aos="fade-up">Skills & Technologies</h2>
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
+            <!-- Skill Item -->
+            <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="100">
+                <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                </div>
+                <h3 class="font-bold text-lg mt-4 text-slate-100">Power BI</h3>
+            </div>
+             <!-- Skill Item -->
+            <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="200">
+                 <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                </div>
+                <h3 class="font-bold text-lg mt-4 text-slate-100">Power Query</h3>
+            </div>
+             <!-- Skill Item -->
+            <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="300">
+                 <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                </div>
+                <h3 class="font-bold text-lg mt-4 text-slate-100">DAX</h3>
+            </div>
+             <!-- Skill Item -->
+            <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="400">
+                 <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10m16-10v10M4 11h16M4 14h16M12 4v16" /></svg>
+                </div>
+                <h3 class="font-bold text-lg mt-4 text-slate-100">SQL</h3>
+            </div>
+             <!-- Skill Item -->
+            <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="500">
+                 <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                </div>
+                <h3 class="font-bold text-lg mt-4 text-slate-100">Excel</h3>
+            </div>
+             <!-- Skill Item -->
+            <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="600">
+                 <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.293 2.293c.63.63.184 1.707-.707 1.707H10V3zM15 21l2.293-2.293c.63-.63.184-1.707-.707 1.707H14v4.001z" /></svg>
+                </div>
+                <h3 class="font-bold text-lg mt-4 text-slate-100">Data Cleaning</h3>
+            </div>
+             <!-- Skill Item -->
+            <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="700">
+                 <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                </div>
+                <h3 class="font-bold text-lg mt-4 text-slate-100">Data Modeling</h3>
+            </div>
+             <!-- Skill Item -->
+            <div class="bg-slate-800 rounded-lg p-6 flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300" data-aos="flip-left" data-aos-delay="800">
+                 <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071a7.5 7.5 0 0110.607 0M12 12v.01" /></svg>
+                </div>
+                <h3 class="font-bold text-lg mt-4 text-slate-100">CCNA Networking</h3>
+            </div>
+        </div>
+
+        <div class="mt-16" data-aos="fade-up">
+             <h3 class="text-2xl md:text-3xl font-bold text-center text-slate-100">Interpersonal Skills</h3>
+             <div class="mt-8 max-w-4xl mx-auto flex flex-wrap justify-center gap-4">
+                   <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Project Management</span>
+                   <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">Teamwork</span>
+                   <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="200">Time Management</span>
+                   <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="250">Leadership</span>
+                   <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="300">Effective Communication</span>
+                   <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="350">Critical Thinking</span>
+             </div>
+        </div>
+
+        <div class="mt-16" data-aos="fade-up">
+            <h3 class="text-2xl md:text-3xl font-bold text-center text-slate-100">Languages</h3>
+            <div class="mt-8 max-w-4xl mx-auto flex flex-wrap justify-center gap-4">
+                 <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="100">Arabic: Native Language</span>
+                 <span class="bg-slate-700 text-slate-300 text-lg font-medium px-5 py-2 rounded-full" data-aos="zoom-in" data-aos-delay="150">English: Good</span>
+            </div>
+       </div>
+
+    </div>
+</section>
+
+<!-- Contact Section -->
+<footer id="contact" class="bg-slate-800 text-white py-20 border-t border-slate-700">
+    <div class="container mx-auto px-6 text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold">Let's Talk!</h2>
+        <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">
+            Looking for a passionate data analyst for your next project? I'm available for new opportunities.
+        </p>
+        <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
+            <a href="mailto:karimhamada240@gmail.com" class="inline-block bg-blue-600 text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg transform hover:scale-105">
+                karimhamada240@gmail.com
+            </a>
+            <a href="Karim_Hamada_CV.pdf" download="Karim_Hamada_CV.pdf" class="inline-flex items-center gap-2 bg-slate-600 text-white font-bold text-lg py-3 px-6 rounded-lg hover:bg-slate-700 transition-colors duration-300 shadow-lg transform hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                Download CV
+            </a>
+        </div>
+        <div class="mt-10 flex justify-center items-center space-x-6">
+            <a href="https://www.linkedin.com/in/karim-hamada-fathalla/" target="_blank" class="text-slate-400 hover:text-white transition-colors duration-300">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="https://wa.me/qr/5GTDJPRWIRE6B1" target="_blank" class="text-slate-400 hover:text-white transition-colors duration-300">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zM6.597 20.193c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.433-9.894-9.889-9.894-5.452 0-9.887 4.434-9.889 9.888.001 2.223.651 4.31 1.746 6.2l-1.105 4.029 4.13-1.084zM16.161 13.334c-.197-.1-1.162-.574-1.342-.641-.18-.065-.312-.1-.444.099-.133.197-.507.641-.622.765-.116.124-.233.148-.43.05-.197-.1-.836-.308-1.592-.985-.589-.542-.967-1.281-1.074-1.498-.107-.216-.011-.33.088-.429.088-.088.197-.232.296-.346.1-.116.133-.198.198-.33.065-.134.034-.249-.016-.347-.05-.099-.444-1.066-.609-1.464-.164-.399-.33-.347-.461-.352-.123-.005-.264-.005-.405-.005-.141 0-.374.05-.568.247-.194.198-.765.751-.765 1.825 0 1.074.781 2.116.896 2.262.116.148 1.583 2.529 3.847 3.537.533.262.948.419 1.274.528.534.169.967.144 1.328.089.412-.064 1.162-.476 1.328-1.105.166-.628.166-1.161.116-1.281-.05-.124-.18-.198-.375-.298z"/></svg>
+            </a>
+        </div>
+        <p class="mt-16 text-slate-500">&copy; 2025 | Designed by Karim Hamada</p>
+    </div>
+</footer>
+
+
+<!-- AI Chat FAB -->
+<button id="open-ai-chat-btn" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg z-40 transform transition-transform hover:scale-110" title="اسأل مساعدي الذكي">
+    <!-- Chat icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    </svg>
+    <!-- Sparkle indicator -->
+    <span class="absolute top-0 right-0 block h-4 w-4 -mt-1 -mr-1">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-4 w-4 bg-yellow-500 text-xs font-bold items-center justify-center text-black" style="font-size: 10px;">✨</span>
+    </span>
+</button>
+
+
+<!-- Modals -->
+
+<!-- AI Chat Modal -->
+<div id="modal-ai-chat" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0 z-50">
+    <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col transform scale-95">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-start border-b border-slate-700 p-6 flex-shrink-0">
+            <h3 class="text-2xl font-bold text-slate-100">✨ اسأل مساعدي الذكي (AI Assistant)</h3>
+            <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+        </div>
+        
+        <!-- Chat History -->
+        <div id="ai-chat-history" class="p-6 flex-grow overflow-y-auto chat-history">
+            <!-- Greeting message -->
+            <div class="chat-message model">
+                أهلاً بك! أنا مساعد كريم الذكي. يمكنك أن تسألني عن مهاراته، مشاريعه، أو خبراته. كيف يمكنني مساعدتك اليوم؟
+            </div>
+            <!-- Suggestion chips -->
+            <div class="flex flex-wrap gap-2 pt-2">
+                <button class="suggestion-chip" data-prompt="What are Karim's strongest technical skills?">ما هي أقوى مهارات كريم التقنية؟</button>
+                <button class="suggestion-chip" data-prompt="Summarize his project on HR Performance.">لخص مشروعه عن أداء الموارد البشرية.</button>
+                <button class="suggestion-chip" data-prompt="Is he certified in Power BI?">هل هو معتمد في Power BI؟</button>
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="border-t border-slate-700 p-4 bg-slate-800/80 backdrop-blur-sm flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <input type="text" id="ai-chat-input" placeholder="اكتب سؤالك هنا..." class="flex-1 bg-slate-700 border border-slate-600 rounded-lg p-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-slate-400">
+                <button id="ai-chat-send" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg transition-colors duration-300 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- NEW MODAL START: Sales & Market Analysis Modal -->
+<div id="modal-sales-market" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0 z-40">
+    <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
+        <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
+            <h3 class="text-2xl font-bold text-slate-100">Power BI Sales & Market Analysis Dashboards</h3>
+            <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+        </div>
+        
+        <h4 class="font-bold text-lg text-slate-200 mb-4">Sales Performance Overview</h4>
+        <img src="photos/Sales Performance Overview.jpg" alt="Sales Performance Dashboard" class="w-full rounded-lg mb-6 shadow-md" onerror="this.src='https://placehold.co/600x400/1e293b/94a3b8?text=Sales+Overview';">
+        
+        <h4 class="font-bold text-lg text-slate-200 mb-4">Market & Strategy Analysis</h4>
+        <img src="photos/Market & Strategy Analysis.jpg" alt="Market & Strategy Analysis Dashboard" class="w-full rounded-lg mb-6 shadow-md" onerror="this.src='https://placehold.co/600x400/1e293b/94a3b8?text=Market+Analysis';">
+
+        <div class="space-y-4 text-slate-400 text-left leading-relaxed">
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Objective:</h4>
+            <p>To design and develop two comprehensive Power BI dashboards showcasing the end-to-end data analysis process, transforming raw store and market data into actionable business insights. The goal was to tell clear stories through data visualization, covering cleaning, exploration, analysis, and visualization steps.</p>
+
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Data Sources:</h4>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Store Data:</strong> Included transactional details like store location (City, State, Region), marketing expenditure, and revenue. Initial data required significant cleaning due to formatting inconsistencies and corrupt records.</li>
+                <li><strong>Market Data:</strong> Provided context about the market environment, including startup type, company size, market challenges, marketing strategies employed, and years in the market. This data also required cleaning for missing and illogical values.</li>
+            </ul>
+
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Process & Key Steps:</h4>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Data Preparation & Cleaning (ETL):</strong> Imported CSV datasets into Power Query. Identified and addressed data quality issues including inconsistent number formats, illogical values (negative company size), missing data, and corrupt/duplicate records.</li>
+                <li><strong>Data Modeling:</strong> Established a relationship between the cleaned Store and Market tables using the Market ID key.</li>
+                <li><strong>Data Exploration:</strong> Utilized various visuals (bar charts, scatter plots, maps) with slicers to understand initial trends and relationships.</li>
+                <li><strong>DAX Calculations:</strong> Developed DAX measures for key metrics including Total Revenue, Total Marketing Spend, Store Count, and performance indicators like Return on Marketing Spend (ROMS).</li>
+                <li><strong>Dashboard Development:</strong> Built two distinct dashboards: (1) Sales Performance Overview and (2) Market & Strategy Analysis.</li>
+                <li><strong>Visualization & Storytelling:</strong> Selected appropriate visuals to clearly communicate insights, incorporating titles, slicers, and a clean layout to tell compelling data stories.</li>
+            </ul>
+
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Skills Demonstrated:</h4>
+            <ul class="list-disc list-inside space-y-2">
+                <li>Data Cleaning & Transformation (ETL) using Power Query</li>
+                <li>Data Modeling & Relationships</li>
+                <li>Data Analysis Expressions (DAX)</li>
+                <li>Data Visualization & Dashboard Design</li>
+                <li>Interactive Reporting (Slicers, Cross-filtering)</li>
+                <li>Data Storytelling & Problem Solving</li>
+            </ul>
+
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power BI</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power Query</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">DAX</span>
+                </div>
+            </div>
+            <!-- This project doesn't have a live link, so the "Live Preview" section is omitted -->
+            <!-- إضافة رابط معاينة المشروع -->
+            <div class="pt-6 border-t border-slate-700 mt-6">
+                <h4 class="font-bold text-lg text-slate-200 mb-4">Live Preview</h4>
+                <p class="text-slate-400 mb-4">Explore the interactive dashboard to analyze the data and insights:</p>
+                <a href="https://app.powerbi.com/links/VPQbY5DyTF?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
+                target="_blank" 
+                class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    View Interactive Dashboard
                 </a>
             </div>
-            <p class="mt-16 text-slate-500">&copy; 2025 | Designed by Karim Hamada</p>
         </div>
-    </footer>
-    
+    </div>
+</div>
+<!-- NEW MODAL END -->
 
-    <!-- Modals -->
-    <!-- HR Modal -->
-    <div id="modal-hr" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0">
-        <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
-            <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
-                <h3 class="text-2xl font-bold text-slate-100">HR Performance Analysis Dashboard</h3>
-                <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
-            </div>
-            <img src="photos/HR-Employee-Attrition project.png" alt="HR Performance Dashboard" class="w-full rounded-lg mb-6 shadow-md">
-            <div class="space-y-4 text-slate-400 text-left leading-relaxed">
-                <p>This project represents a complete business intelligence solution, transforming a raw HR dataset into an interactive and actionable dashboard. The workflow followed best practices, starting with data cleaning in Power Query, followed by the creation of a robust data model and custom metric calculations using DAX.</p>
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
-                <ul class="list-disc list-inside space-y-2">
-                    <li><strong>Data Preparation (Power Query):</strong> Performed essential data cleaning tasks, handled missing values, ensured consistent data types, and transformed columns with numerical codes into meaningful categories (e.g., Attrition Yes/No).</li>
-                    <li><strong>Data Modeling & Analysis (DAX):</strong> Developed critical measures to calculate key HR metrics, including Total Employees, Total Attrition, Attrition Rate (%), Average Years at Company, and Average Monthly Income.</li>
-                    <li><strong>Dashboard Design:</strong> Created a visually appealing and intuitive dashboard featuring KPI cards for an at-a-s-glance overview, multi-dimensional analysis charts, and interactive slicers for deep-dive analysis.</li>
-                </ul>
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power BI</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power Query</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">DAX</span>
-                    </div>
+<!-- HR Modal -->
+<div id="modal-hr" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0 z-40">
+    <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
+        <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
+            <h3 class="text-2xl font-bold text-slate-100">HR Performance Analysis Dashboard</h3>
+            <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+        </div>
+        <img src="photos/HR-Employee-Attrition project.png" alt="HR Performance Dashboard" class="w-full rounded-lg mb-6 shadow-md">
+        <div class="space-y-4 text-slate-400 text-left leading-relaxed">
+            <p>This project represents a complete business intelligence solution, transforming a raw HR dataset into an interactive and actionable dashboard. The workflow followed best practices, starting with data cleaning in Power Query, followed by the creation of a robust data model and custom metric calculations using DAX.</p>
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Data Preparation (Power Query):</strong> Performed essential data cleaning tasks, handled missing values, ensured consistent data types, and transformed columns with numerical codes into meaningful categories (e.g., Attrition Yes/No).</li>
+                <li><strong>Data Modeling & Analysis (DAX):</strong> Developed critical measures to calculate key HR metrics, including Total Employees, Total Attrition, Attrition Rate (%), Average Years at Company, and Average Monthly Income.</li>
+                <li><strong>Dashboard Design:</strong> Created a visually appealing and intuitive dashboard featuring KPI cards for an at-a-s-glance overview, multi-dimensional analysis charts, and interactive slicers for deep-dive analysis.</li>
+            </ul>
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power BI</span>
                 </div>
-                
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power Query</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">DAX</span>
+                </div>
+            </div>
+            
+            <!-- إضافة رابط معاينة المشروع -->
+            <div class="pt-6 border-t border-slate-700 mt-6">
+                <h4 class="font-bold text-lg text-slate-200 mb-4">Live Preview</h4>
+                <p class="text-slate-400 mb-4">Explore the interactive HR dashboard to analyze employee attrition and performance metrics:</p>
+                <a href="https://app.powerbi.com/links/tFYPlDhVP_?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
+                target="_blank" 
+                class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    View Interactive Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Supermarket Modal -->
+<div id="modal-supermarket" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0 z-40">
+    <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
+        <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
+            <h3 class="text-2xl font-bold text-slate-100">Supermarket Sales Analysis Dashboard</h3>
+            <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+        </div>
+        <img src="photos/Supermarket-Sales-Analysis.png" alt="Supermarket Sales Dashboard" class="w-full rounded-lg mb-6 shadow-md">
+        <div class="space-y-4 text-slate-400 text-left leading-relaxed">
+             <p>This project demonstrates a complete business intelligence workflow, focused on analyzing supermarket sales data. The project followed a structured approach to transform raw data into a dynamic and insightful dashboard.</p>
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Data Preparation (Power Query):</strong> Imported the raw data and performed key cleaning steps, including removing irrelevant rows from the bottom of the table to ensure only valid data was used.</li>
+                <li><strong>Data Modeling & Analysis (DAX):</strong> Created custom DAX measures to calculate Total Sales, Total Quantity, Average Retail Price, Average Order Quantity, and Average Tax.</li>
+                <li><strong>Feature Engineering (DAX):</strong> Created a new column to calculate the number of days between the 'Order Date' and 'Ship Date', and a measure for the 'Average Shipment Days'.</li>
+                <li><strong>Dashboard Design:</strong> Designed a dynamic dashboard to visualize key business metrics, including Total Sales by Customer, Total Sales by Month, and prominently displayed KPI cards.</li>
+            </ul>
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
+             <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power BI</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power Query</span>
+                </div>
+                 <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">DAX</span>
+                </div>
                 <!-- إضافة رابط معاينة المشروع -->
                 <div class="pt-6 border-t border-slate-700 mt-6">
                     <h4 class="font-bold text-lg text-slate-200 mb-4">Live Preview</h4>
-                    <p class="text-slate-400 mb-4">Explore the interactive HR dashboard to analyze employee attrition and performance metrics:</p>
-                    <a href="https://app.powerbi.com/links/tFYPlDhVP_?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
+                    <p class="text-slate-400 mb-4">Explore the interactive dashboard to analyze the data and insights:</p>
+                    <a href="https://app.powerbi.com/links/UqI9KuXVhO?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
                     target="_blank" 
                     class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -438,95 +686,127 @@
             </div>
         </div>
     </div>
-    
-    <!-- Supermarket Modal -->
-    <div id="modal-supermarket" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0">
-        <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
-            <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
-                <h3 class="text-2xl font-bold text-slate-100">Supermarket Sales Analysis Dashboard</h3>
-                <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+</div>
+
+<!-- Global Sales Analysis Modal -->
+<div id="modal-sales" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0 z-40">
+    <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
+        <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
+            <h3 class="text-2xl font-bold text-slate-100">Global Sales Performance Analysis Dashboard</h3>
+            <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+        </div>
+        <img src="photos/Sales Performance Analysis.png" alt="Global Sales Performance Dashboard" class="w-full rounded-lg mb-6 shadow-md">
+        <div class="space-y-4 text-slate-400 text-left leading-relaxed">
+            <p>This project involved a comprehensive analysis of the 'Global Superstore' dataset. The primary objective was to build an interactive and visually compelling dashboard in Power BI to track sales, profitability, and geographical performance, transforming raw data into strategic business insights.</p>
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Data Cleaning & Transformation (Power Query):</strong> Corrected date format issues using the 'Change Type with Locale' feature to handle regional date differences. Verified all data types and ensured data integrity before loading.</li>
+                <li><strong>Data Modeling:</strong> Implemented data modeling best practices by creating a dedicated Calendar table using DAX. Established and validated a correct one-to-many relationship between the Calendar table and the main sales data table.</li>
+                <li><strong>Advanced DAX Measures:</strong> Developed a suite of DAX measures to calculate core KPIs, including Total Sales, Total Profit, and Profit Margin. Created advanced time-intelligence measures like `Last Year Sales` and `Sales YoY %` for comparative analysis.</li>
+                <li><strong>Interactive Dashboard Design:</strong> Designed a professional, dark-themed dashboard featuring KPI cards with conditional formatting, a time-series line chart, a geographical map to visualize profit by country, and charts for categorical analysis. Implemented slicers for dynamic filtering by year, market, and category.</li>
+            </ul>
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power BI</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power Query</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">DAX</span>
+                </div>
             </div>
-            <img src="photos/Supermarket-Sales-Analysis.png" alt="Supermarket Sales Dashboard" class="w-full rounded-lg mb-6 shadow-md">
-            <div class="space-y-4 text-slate-400 text-left leading-relaxed">
-                 <p>This project demonstrates a complete business intelligence workflow, focused on analyzing supermarket sales data. The project followed a structured approach to transform raw data into a dynamic and insightful dashboard.</p>
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
-                <ul class="list-disc list-inside space-y-2">
-                    <li><strong>Data Preparation (Power Query):</strong> Imported the raw data and performed key cleaning steps, including removing irrelevant rows from the bottom of the table to ensure only valid data was used.</li>
-                    <li><strong>Data Modeling & Analysis (DAX):</strong> Created custom DAX measures to calculate Total Sales, Total Quantity, Average Retail Price, Average Order Quantity, and Average Tax.</li>
-                    <li><strong>Feature Engineering (DAX):</strong> Created a new column to calculate the number of days between the 'Order Date' and 'Ship Date', and a measure for the 'Average Shipment Days'.</li>
-                    <li><strong>Dashboard Design:</strong> Designed a dynamic dashboard to visualize key business metrics, including Total Sales by Customer, Total Sales by Month, and prominently displayed KPI cards.</li>
-                </ul>
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                 <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power BI</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power Query</span>
-                    </div>
-                     <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">DAX</span>
-                    </div>
-                    <!-- إضافة رابط معاينة المشروع -->
-                    <div class="pt-6 border-t border-slate-700 mt-6">
-                        <h4 class="font-bold text-lg text-slate-200 mb-4">Live Preview</h4>
-                        <p class="text-slate-400 mb-4">Explore the interactive dashboard to analyze the data and insights:</p>
-                        <a href="https://app.powerbi.com/links/UqI9KuXVhO?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
-                        target="_blank" 
-                        class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            View Interactive Dashboard
-                        </a>
-                    </div>
+            
+            <!-- إضافة رابط معاينة المشروع -->
+            <div class="pt-6 border-t border-slate-700 mt-6">
+                <h4 class="font-bold text-lg text-slate-200 mb-4">Live Preview</h4>
+                <p class="text-slate-400 mb-4">You can interact with the live dashboard to explore the data and insights:</p>
+                <a href="https://app.powerbi.com/links/g3X4rRhFul?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
+                target="_blank" 
+                class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    View Interactive Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Data Cleaning Modal -->
+<div id="modal-cleaning" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0 z-40">
+    <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
+        <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
+            <h3 class="text-2xl font-bold text-slate-100">Data Cleaning & Transformation with Power Query</h3>
+            <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+        </div>
+        <img src="photos/cleaning.png" alt="Data Cleaning Project" class="w-full rounded-lg mb-6 shadow-md">
+        <div class="space-y-4 text-slate-400 text-left leading-relaxed">
+            <p>An end-to-end process of cleaning and transforming raw, unstructured data to build a solid foundation for future analysis.</p>
+            
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Data Assessment & Profiling:</strong> Conducted comprehensive analysis of raw datasets to identify data quality issues, inconsistencies, and missing values.</li>
+                <li><strong>Data Cleaning Operations:</strong> Performed essential data cleaning tasks including handling null values, removing duplicates, correcting data types, and standardizing formats.</li>
+                <li><strong>Data Transformation:</strong> Applied advanced Power Query transformations such as pivoting/unpivoting columns, splitting and merging columns, and conditional column creation.</li>
+                <li><strong>Data Validation & Quality Assurance:</strong> Implemented data validation rules and quality checks to ensure data integrity and accuracy throughout the transformation process.</li>
+                <li><strong>Performance Optimization:</strong> Optimized query performance by removing unnecessary steps, leveraging query folding, and implementing efficient data loading strategies.</li>
+            </ul>
+
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power BI</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power Query</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Excel</span>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- NEW MODAL START: Sales Analysis Modal -->
-  <!-- NEW MODAL START: Sales Analysis Modal -->
-    <div id="modal-sales" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0">
-        <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
-            <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
-                <h3 class="text-2xl font-bold text-slate-100">Global Sales Performance Analysis Dashboard</h3>
-                <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
-            </div>
-            <img src="photos/Sales Performance Analysis.png" alt="Global Sales Performance Dashboard" class="w-full rounded-lg mb-6 shadow-md">
-            <div class="space-y-4 text-slate-400 text-left leading-relaxed">
-                <p>This project involved a comprehensive analysis of the 'Global Superstore' dataset. The primary objective was to build an interactive and visually compelling dashboard in Power BI to track sales, profitability, and geographical performance, transforming raw data into strategic business insights.</p>
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
-                <ul class="list-disc list-inside space-y-2">
-                    <li><strong>Data Cleaning & Transformation (Power Query):</strong> Corrected date format issues using the 'Change Type with Locale' feature to handle regional date differences. Verified all data types and ensured data integrity before loading.</li>
-                    <li><strong>Data Modeling:</strong> Implemented data modeling best practices by creating a dedicated Calendar table using DAX. Established and validated a correct one-to-many relationship between the Calendar table and the main sales data table.</li>
-                    <li><strong>Advanced DAX Measures:</strong> Developed a suite of DAX measures to calculate core KPIs, including Total Sales, Total Profit, and Profit Margin. Created advanced time-intelligence measures like `Last Year Sales` and `Sales YoY %` for comparative analysis.</li>
-                    <li><strong>Interactive Dashboard Design:</strong> Designed a professional, dark-themed dashboard featuring KPI cards with conditional formatting, a time-series line chart, a geographical map to visualize profit by country, and charts for categorical analysis. Implemented slicers for dynamic filtering by year, market, and category.</li>
-                </ul>
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power BI</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power Query</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">DAX</span>
-                    </div>
+</div>
+<!-- DAX Modal -->
+<div id="modal-dax" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0 z-40">
+    <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
+        <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
+            <h3 class="text-2xl font-bold text-slate-100">Sales Data Analysis with DAX</h3>
+            <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
+        </div>
+        <img src="photos/download.png" alt="DAX Sales Analysis Dashboard" class="w-full rounded-lg mb-6 shadow-md">
+        <div class="space-y-4 text-slate-400 text-left leading-relaxed">
+            <p>This project showcases a complete business intelligence workflow, from data preparation to interactive visualization. The process involved cleaning raw data with Power Query and then building a comprehensive dashboard with KPIs and analytical reports using DAX.</p>
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Data Preparation (Power Query):</strong> Performed essential cleaning tasks to ensure data accuracy and created a new "Day of Purchase" column through feature engineering.</li>
+                <li><strong>Data Modeling and Analysis (DAX):</strong> Developed custom measures to calculate critical business metrics, including Total Quantity, Max/Min Quantity Orders, Average Price per Unit, and Total Number of Orders.</li>
+                <li><strong>Dashboard Creation:</strong> Designed a dynamic dashboard visualizing key insights, such as Total Quantity by Product Line, Total Orders by City/State, and Average Price by Product Line.</li>
+            </ul>
+            <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
+             <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power BI</span>
                 </div>
-                
+                <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
+                    <span class="font-medium text-sm text-slate-200">Power Query</span>
+                </div>
                 <!-- إضافة رابط معاينة المشروع -->
                 <div class="pt-6 border-t border-slate-700 mt-6">
                     <h4 class="font-bold text-lg text-slate-200 mb-4">Live Preview</h4>
-                    <p class="text-slate-400 mb-4">You can interact with the live dashboard to explore the data and insights:</p>
-                    <a href="https://app.powerbi.com/links/g3X4rRhFul?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
+                    <p class="text-slate-400 mb-4">Explore the interactive dashboard to analyze the data and insights:</p>
+                    <a href="https://app.powerbi.com/links/6QyxCjOot3?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
                     target="_blank" 
                     class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -535,96 +815,13 @@
                         View Interactive Dashboard
                     </a>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- NEW MODAL END -->
-    <!-- Data Cleaning Modal -->
-    <div id="modal-cleaning" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0">
-        <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
-            <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
-                <h3 class="text-2xl font-bold text-slate-100">Data Cleaning & Transformation with Power Query</h3>
-                <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
-            </div>
-            <img src="photos/cleaning.png" alt="Data Cleaning Project" class="w-full rounded-lg mb-6 shadow-md">
-            <div class="space-y-4 text-slate-400 text-left leading-relaxed">
-                <p>An end-to-end process of cleaning and transforming raw, unstructured data to build a solid foundation for future analysis.</p>
                 
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
-                <ul class="list-disc list-inside space-y-2">
-                    <li><strong>Data Assessment & Profiling:</strong> Conducted comprehensive analysis of raw datasets to identify data quality issues, inconsistencies, and missing values.</li>
-                    <li><strong>Data Cleaning Operations:</strong> Performed essential data cleaning tasks including handling null values, removing duplicates, correcting data types, and standardizing formats.</li>
-                    <li><strong>Data Transformation:</strong> Applied advanced Power Query transformations such as pivoting/unpivoting columns, splitting and merging columns, and conditional column creation.</li>
-                    <li><strong>Data Validation & Quality Assurance:</strong> Implemented data validation rules and quality checks to ensure data integrity and accuracy throughout the transformation process.</li>
-                    <li><strong>Performance Optimization:</strong> Optimized query performance by removing unnecessary steps, leveraging query folding, and implementing efficient data loading strategies.</li>
-                </ul>
-
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power BI</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power Query</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Excel</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-    <!-- DAX Modal -->
-    <div id="modal-dax" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0">
-        <div class="modal-content bg-slate-800 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
-            <div class="flex justify-between items-start border-b border-slate-700 pb-4 mb-6">
-                <h3 class="text-2xl font-bold text-slate-100">Sales Data Analysis with DAX</h3>
-                <button class="close-modal-button text-3xl font-bold h-8 w-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">&times;</button>
-            </div>
-            <img src="photos/download.png" alt="DAX Sales Analysis Dashboard" class="w-full rounded-lg mb-6 shadow-md">
-            <div class="space-y-4 text-slate-400 text-left leading-relaxed">
-                <p>This project showcases a complete business intelligence workflow, from data preparation to interactive visualization. The process involved cleaning raw data with Power Query and then building a comprehensive dashboard with KPIs and analytical reports using DAX.</p>
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Key Responsibilities:</h4>
-                <ul class="list-disc list-inside space-y-2">
-                    <li><strong>Data Preparation (Power Query):</strong> Performed essential cleaning tasks to ensure data accuracy and created a new "Day of Purchase" column through feature engineering.</li>
-                    <li><strong>Data Modeling and Analysis (DAX):</strong> Developed custom measures to calculate critical business metrics, including Total Quantity, Max/Min Quantity Orders, Average Price per Unit, and Total Number of Orders.</li>
-                    <li><strong>Dashboard Creation:</strong> Designed a dynamic dashboard visualizing key insights, such as Total Quantity by Product Line, Total Orders by City/State, and Average Price by Product Line.</li>
-                </ul>
-                <h4 class="font-bold text-lg pt-2 text-slate-200">Tools Used:</h4>
-                 <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12.5v-1.071A2.5 2.5 0 015.5 8.929h.536a1 1 0 001-1V5.5A2.5 2.5 0 019.536 3h1.071a2.5 2.5 0 012.5 2.5v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5v1.071a2.5 2.5 0 01-2.5 2.5h-.535a1 1 0 00-1 1v2.429a1 1 0 001 1h.535a2.5 2.5 0 012.5 2.5V21H5.5A2.5 2.5 0 013 18.5v-6z" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power BI</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-700 px-3 py-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.64 3.142a1 1 0 01.599.243l8 6a1 1 0 01-1.478 1.343L13 6.649V13a1 1 0 11-2 0V6.649l-5.76 4.08a1 1 0 01-1.239-1.55l7-5a1 1 0 01.639-.037zM11 15a1 1 0 102 0v5.5a1.5 1.5 0 01-3 0V15z" clip-rule="evenodd" /></svg>
-                        <span class="font-medium text-sm text-slate-200">Power Query</span>
-                    </div>
-                    <!-- إضافة رابط معاينة المشروع -->
-                    <div class="pt-6 border-t border-slate-700 mt-6">
-                        <h4 class="font-bold text-lg text-slate-200 mb-4">Live Preview</h4>
-                        <p class="text-slate-400 mb-4">Explore the interactive dashboard to analyze the data and insights:</p>
-                        <a href="https://app.powerbi.com/links/6QyxCjOot3?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare" 
-                        target="_blank" 
-                        class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            View Interactive Dashboard
-                        </a>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
-<!-- AOS Animation Library JS -->
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
 <script>
     // Initialize AOS Library
     AOS.init({
@@ -652,6 +849,7 @@
         });
 
         const openModal = (modal) => {
+            if (!modal) return; // Guard clause
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
             modal.classList.remove('hidden');
             setTimeout(() => {
@@ -661,6 +859,7 @@
         };
 
         const closeModal = (modal) => {
+            if (!modal) return; // Guard clause
             document.body.style.overflow = ''; // Restore background scrolling
             modal.classList.add('opacity-0');
             modal.querySelector('.modal-content').classList.add('scale-95');
@@ -699,8 +898,199 @@
                 document.querySelectorAll('.modal:not(.hidden)').forEach(closeModal);
             }
         });
+
+        // --- Gemini AI Chat Logic ---
+
+        const modalAiChat = document.getElementById('modal-ai-chat');
+        const openAiChatBtn = document.getElementById('open-ai-chat-btn');
+        const aiChatSendBtn = document.getElementById('ai-chat-send');
+        const aiChatInput = document.getElementById('ai-chat-input');
+        const aiChatHistory = document.getElementById('ai-chat-history');
+
+        // System prompt with Karim's portfolio data
+        const SYSTEM_PROMPT = `You are an expert AI assistant representing Karim Hamada, a Data Analyst and IT student. Your goal is to answer questions from recruiters and visitors based *only* on the information provided below. Be friendly, professional, and concise. You MUST respond in the same language as the user's query (e.g., if asked in Arabic, respond in Arabic). If the user asks a question you can't answer from this data, or asks for opinions, politely say you don't have that specific information.
+
+**Karim's Profile:**
+- **Name:** Karim Hamada Fathallah
+- **Role:** Data Analyst & 3rd Year CS/IT Student at EELU (GPA 3.4)
+- **Passion:** Transforming raw data into actionable insights for decision-making.
+- **Languages:** Arabic (Native), English (Good)
+- **Contact:** karimhamada240@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/karim-hamada-fathalla/
+
+**Key Technical Skills:**
+- **BI Tools:** Power BI (Expert), Power Query (Expert)
+- **Analysis:** DAX (Expert), Data Modeling, Data Cleaning, ETL
+- **Database:** SQL
+- **Other:** Excel, CCNA Networking
+
+**Interpersonal Skills:**
+- Project Management, Teamwork, Time Management, Leadership, Effective Communication, Critical Thinking
+
+**Projects (All in Power BI):**
+1.  **Sales & Market Analysis:** End-to-end analysis of store/market data (ETL, DAX, ROMS). Live: https://app.powerbi.com/links/VPQbY5DyTF?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare
+2.  **HR Performance Analysis:** Focused on employee attrition and performance metrics. Live: https://app.powerbi.com/links/tFYPlDhVP_?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare
+3.  **Supermarket Sales:** Analysis with DAX and feature engineering. Live: https://app.powerbi.com/links/UqI9KuXVhO?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare
+4.  **Global Sales Performance:** Used time-intelligence DAX for YoY analysis. Live: https://app.powerbi.com/links/g3X4rRhFul?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare
+5.  **DAX Sales Analysis:** Focused on advanced DAX metrics. Live: https://app.powerbi.com/links/6QyxCjOot3?ctid=f00f2f39-2ff1-431f-aba9-3273f8ad190e&pbi_source=linkShare
+6.  **Data Cleaning:** Project focused on Power Query transformations (No live link).
+
+**Certifications:**
+- CCNA: Introduction to Networks
+- Data Analysis with Power BI (DEPI)
+- AI Fundamentals (Udemy)
+- Device Configuration and Management (Certiport)
+- Google Analytics Certification
+- Automated Machine Learning for Beginners (Udemy)`;
+
+        // Open AI chat modal
+        openAiChatBtn.addEventListener('click', () => {
+            openModal(modalAiChat);
+            // Auto-focus the input field when modal opens
+            setTimeout(() => aiChatInput.focus(), 310); // Match modal transition
+        });
+
+        // Handle sending a chat message
+        const handleAiChatSend = async () => {
+            const userQuery = aiChatInput.value.trim();
+            if (!userQuery) return;
+
+            // Display user message
+            appendMessage(userQuery, 'user');
+            aiChatInput.value = '';
+
+            // Show loading
+            const loadingElement = appendMessage('...', 'model', true);
+
+            try {
+                // Call Gemini API
+                await callGeminiAPI(userQuery, loadingElement);
+            } catch (error) {
+                // Error is handled inside callGeminiAPI's retry logic
+                console.error("Gemini API call failed after retries:", error);
+                // The loading element will already be updated with an error message
+            }
+        };
+
+        // Send on button click
+        aiChatSendBtn.addEventListener('click', handleAiChatSend);
+
+        // Send on 'Enter' key press
+        aiChatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission
+                handleAiChatSend();
+            }
+        });
+
+        // Handle suggestion chip clicks
+        document.querySelectorAll('.suggestion-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const prompt = chip.getAttribute('data-prompt');
+                const userText = chip.innerText; // The text the user sees
+                
+                appendMessage(userText, 'user'); // Show the clicked text in UI
+                
+                const loadingElement = appendMessage('...', 'model', true);
+                
+                callGeminiAPI(prompt, loadingElement).catch(error => { // Use the English prompt for the model
+                     console.error("Gemini API call failed:", error);
+                     // Error message is set within the API call function
+                });
+            });
+        });
+
+        // Helper to append messages to chat history
+        const appendMessage = (text, sender, isLoading = false) => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            
+            if (isLoading) {
+                messageElement.classList.add('loading');
+                messageElement.innerHTML = `<div class="spinner"></div> <span>جاري التفكير...</span>`;
+            } else {
+                // Basic text sanitation
+                const cleanText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                 // Convert URLs to clickable links, especially Power BI links
+                const linkedText = cleanText.replace(/(https?:\/\/app\.powerbi\.com[^\s]+)/g, '<a href="$1" target="_blank" class="text-blue-400 hover:underline">$1</a>');
+                messageElement.innerHTML = linkedText; // Use innerHTML to render the link
+            }
+            
+            aiChatHistory.appendChild(messageElement);
+            // Scroll to bottom
+            aiChatHistory.scrollTop = aiChatHistory.scrollHeight;
+            return messageElement;
+        };
+
+        // Function to call Gemini API with exponential backoff
+        const callGeminiAPI = async (userQuery, loadingElement, retries = 3, delay = 1000) => {
+            const apiKey = ""; // API key will be provided by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: SYSTEM_PROMPT }]
+                },
+                // Not using grounding, we want answers ONLY from the system prompt
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    // Handle non-OK responses (like 429 Too Many Requests)
+                    if (response.status === 429 && retries > 0) {
+                        // Don't log to console, just wait and retry
+                        await new Promise(res => setTimeout(res, delay));
+                        return callGeminiAPI(userQuery, loadingElement, retries - 1, delay * 2); // Exponential backoff
+                    }
+                    throw new Error(`API response error: ${response.status} ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                let aiResponse = "عذراً، لم أتمكن من إنشاء رد. (Sorry, I couldn't generate a response.)"; // Default fallback
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    aiResponse = candidate.content.parts[0].text;
+                } else {
+                     // Handle cases where the response is valid but content is missing or blocked
+                    if (candidate && candidate.finishReason !== "STOP") {
+                        aiResponse = "تم حظر الرد لأسباب تتعلق بالسلامة. (Response blocked for safety reasons.)";
+                    }
+                }
+
+                // Update the loading element with the actual response
+                loadingElement.classList.remove('loading');
+                loadingElement.innerHTML = ''; // Clear spinner
+                const cleanResponse = aiResponse.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                // Convert URLs to clickable links in the response
+                const linkedResponse = cleanResponse.replace(/(https?:\/\/app\.powerbi\.com[^\s]+)/g, '<a href="$1" target="_blank" class="text-blue-400 hover:underline">$1</a>');
+                loadingElement.innerHTML = linkedResponse; // Use innerHTML to render the link
+
+            } catch (error) {
+                // This catch block handles network errors or fetch failures
+                if (retries > 0) {
+                    // Don't log to console, just wait and retry
+                    await new Promise(res => setTimeout(res, delay));
+                    return callGeminiAPI(userQuery, loadingElement, retries - 1, delay * 2);
+                } else {
+                    // After all retries, show an error
+                    console.error('Error in callGeminiAPI after retries:', error);
+                    loadingElement.classList.remove('loading');
+                    loadingElement.innerText = "حدث خطأ أثناء الاتصال بالمساعد الذكي. يرجى المحاولة مرة أخرى لاحقاً. (Error connecting to the AI. Please try again later.)";
+                }
+            }
+        };
+
     });
 </script>
 
 </body>
 </html>
+
